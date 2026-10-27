@@ -34,7 +34,7 @@ if errorlevel 1 (
 if not defined GIT (
   echo ERROR: git.exe not found on this machine.
   echo        Install Git for Windows: https://git-scm.com/download/win
-  echo        (check "Add to PATH" during install), then re-run this script.
+  echo        Check "Add to PATH" during install, then re-run this script.
   pause
   exit /b 1
 )
