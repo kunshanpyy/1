@@ -1,0 +1,9 @@
+#CUDA_VISIBLE_DEVICES=1,2 ./tools/dist_train.sh ./my_config/ukan_da.py 2
+#CUDA_VISIBLE_DEVICES=1,2 ./tools/dist_train.sh ./my_config/ukan_tr.py 2
+#CUDA_VISIBLE_DEVICES=1,2,3 ./tools/dist_train.sh ./my_config/ukan_all.py 3
+#CUDA_VISIBLE_DEVICES=1 nohup ./tools/dist_train.sh ./my_config/ukan.py 1 >> exp.log &
+#CUDA_VISIBLE_DEVICES=1 nohup ./tools/dist_train.sh ./my_config/resunet.py 1 >> exp2.log &
+#CUDA_VISIBLE_DEVICES=1 nohup ./tools/dist_train.sh ./my_config/condseg.py 1 >> exp3.log &
+#CUDA_VISIBLE_DEVICES=1 nohup ./tools/dist_train.sh ./my_config/transunet.py 1 >> exp1.log &
+#CUDA_VISIBLE_DEVICES=2 nohup ./tools/dist_train.sh ./my_config/unet.py 1 >> exp2.log &
+#CUDA_VISIBLE_DEVICES=3 nohup ./tools/dist_train.sh ./my_config/unetpp.py 1 >> exp3.log &

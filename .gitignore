@@ -1,0 +1,45 @@
+# ===== 数据集（不传，体积大且应单独管理）=====
+Potsdam_Vaihingen/
+Potsdam/
+Vaihingen/
+data/
+datasets/
+
+# ===== 训练产物 / 模型权重（不传）=====
+work_dirs/
+checkpoints/
+pretrained/
+*.pth
+*.ckpt
+*.pt
+*.onnx
+
+# ===== 可视化 / 推理输出 =====
+vis_results/
+outputs/
+runs/
+*.png
+*.jpg
+*.jpeg
+!docs/**/*.png
+!resources/**/*.png
+
+# ===== Python 缓存与构建产物 =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+
+# ===== IDE =====
+.idea/
+.vscode/
+*.swp
+
+# ===== 系统 =====
+.DS_Store
+Thumbs.db
+*.log
