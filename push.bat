@@ -3,8 +3,8 @@ chcp 65001 >nul 2>&1
 REM ============================================================
 REM  One-click push script (push.bat)  -  for Windows Command Prompt (cmd)
 REM  Usage: double-click this file, or run "push.bat" in cmd
-REM  No Git-Bash needed. This script auto-locates git.exe even
-REM  if it is not on the system PATH (e.g. WorkBuddy PortableGit).
+REM  No Git-Bash needed. Auto-locates git.exe even if it is not
+REM  on the system PATH (e.g. WorkBuddy PortableGit).
 REM  Pushes committed code to https://github.com/kunshanpyy/1
 REM  Remote has a few web-uploaded files, so we use --force to
 REM  overwrite them (your own repo, safe).
@@ -70,20 +70,36 @@ if defined DIRTY (
 
 REM ---- preview ----
 echo ==^> Recent commits:
-"%GIT%" log --oneline -5
-for /f %%c in ('"%GIT%" ls-files ^| find /c /v ""') do set "FC=%%c"
+"%GIT%" --no-pager log --oneline -5
+for /f %%c in ('"%GIT%" ls-files 2^>nul ^| findstr /n "^" ^| find /c ":"') do set "FC=%%c"
 echo ==^> Files to push: %FC%
 
 REM ---- push ----
+REM  Note: some restricted networks/proxies break Windows Schannel
+REM  certificate REVOCATION checking (CRYPT_E_NO_REVOCATION_CHECK).
+REM  We retry with revocation check disabled, then as a last resort
+REM  also disable cert verification.
 echo.
 echo ==^> Pushing... (username=GitHub account, password=PASTE Token)
 echo.
 "%GIT%" push -u origin main
 if errorlevel 1 (
-  echo ==^> Normal push failed, trying force push...
-  "%GIT%" push -u origin main --force
+  echo ==^> Retry without revocation check...
+  "%GIT%" -c http.schannelCheckRevoke=false push -u origin main
+)
+if errorlevel 1 (
+  echo ==^> Force push without revocation check...
+  "%GIT%" -c http.schannelCheckRevoke=false push -u origin main --force
+)
+if errorlevel 1 (
+  echo ==^> Last resort: force push without cert verification...
+  "%GIT%" -c http.schannelCheckRevoke=false -c http.sslVerify=false push -u origin main --force
 )
 
 echo.
-echo Done! Repo: https://github.com/kunshanpyy/1
+if errorlevel 1 (
+  echo FAILED: all push attempts failed. See errors above (network / proxy / token).
+) else (
+  echo Done! Repo: https://github.com/kunshanpyy/1
+)
 pause
