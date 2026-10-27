@@ -98,7 +98,7 @@ if errorlevel 1 (
 
 echo.
 if errorlevel 1 (
-  echo FAILED: all push attempts failed. See errors above (network / proxy / token).
+  echo FAILED: all push attempts failed. See errors above - network, proxy or token.
 ) else (
   echo Done! Repo: https://github.com/kunshanpyy/1
 )
